@@ -17,9 +17,11 @@ public class CargoDAO {
             while (rs.next()) {
                 cargo.adicionarItem(rs.getInt("id_cargo"), rs.getString("nome_cargo"));
             }
+            stmt.close();
+            conn.close();
             return cargo;
         } catch (SQLException e) {
-            System.out.println("Erro ao se conectar ao banco de dados.");
+            System.out.println("Erro ao se conectar ao banco de dados.\n");
         }
         return null;
     }
