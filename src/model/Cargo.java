@@ -17,7 +17,7 @@ public class Cargo {
         return dicionario.get(chave);
     }
 
-    public boolean verificarCargo(int cargo, String cargoEsperado) {
+    public boolean verificarPermissao(int cargo, String cargoEsperado) {
         if (verificarChave(cargo) != cargoEsperado) {
             return false;
         }
