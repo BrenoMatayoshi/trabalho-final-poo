@@ -38,8 +38,8 @@ public class PessoaDAO {
             stmt.setString(2, login);
             stmt.setString(3, senha);
             ResultSet rs = stmt.executeQuery();
-            stmt.close();
-            conn.close();
+            //stmt.close();
+            //conn.close();
             if (rs.next()) {
                 return new Pessoa(rs.getString("cpf"),rs.getString("nome_pessoa"), rs.getInt("id_cargo"));
             }

@@ -75,4 +75,17 @@ public class Auxiliar {
             return null;
         }
     }
+
+    public static String menuPrincipal(int cargo) {
+        switch (cargo) {
+            case 1:
+            return "Menu:\n1 - Listar todos os itens.\n2 - Buscar item.\n3 - Exibir histórico.\n0 - Encerrar o programa.";
+
+            case 2:
+                return "Menu:\n1 - Cadastrar item no estoque.\n2 - Adicionar item.\n3 - Retirar item.\n4 - Listar todos os itens.\n5 - Buscar item.\n6 - Exibir histórico.\n0 - Encerrar programa.\n";
+            
+            default:
+                return "";
+        }
+    }
 }
