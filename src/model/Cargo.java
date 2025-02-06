@@ -13,14 +13,7 @@ public class Cargo {
         dicionario.put(chave, valor);
     }
 
-    private String verificarChave(int chave) {
+    public String verificarChave(int chave) {
         return dicionario.get(chave);
-    }
-
-    public boolean verificarPermissao(int cargo, String cargoEsperado) {
-        if (verificarChave(cargo) != cargoEsperado) {
-            return false;
-        }
-        return true;
     }
 }
