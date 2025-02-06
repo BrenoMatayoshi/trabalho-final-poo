@@ -5,7 +5,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
 
+import controller.CargoController;
+import model.Cargo;
+
 public class Auxiliar {
+    private static Cargo cargo = new CargoController().getCargos();
 
     public static String formatarCPF(String cpf) {
         // Tira os pontos
@@ -76,16 +80,14 @@ public class Auxiliar {
         }
     }
 
-    public static String menuPrincipal(int cargo) {
-        switch (cargo) {
-            case 1:
-            return "Menu:\n1 - Listar todos os itens.\n2 - Buscar item.\n3 - Exibir histórico.\n0 - Encerrar o programa.";
-
-            case 2:
-                return "Menu:\n1 - Cadastrar item no estoque.\n2 - Adicionar item.\n3 - Retirar item.\n4 - Listar todos os itens.\n5 - Buscar item.\n6 - Exibir histórico.\n0 - Encerrar programa.\n";
-            
-            default:
-                return "";
+    public static boolean verificarPermissao(int id_cargo, String cargoEsperado) {
+        if (cargo.verificarChave(id_cargo).equals(cargoEsperado)) {
+            return false;
         }
+        return true;
+    }
+
+    public static String permissao(int id) {
+        return cargo.verificarChave(id);
     }
 }

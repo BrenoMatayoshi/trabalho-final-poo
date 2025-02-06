@@ -24,14 +24,20 @@ public class App {
             return;
         }
         while (true) {
-            System.out.println();
+            System.out.println("Usuário: " + usuarioAtivo.getNome_pessoa() + ".\nNível de permissão: " + Auxiliar.permissao(usuarioAtivo.getCargo()) + ".\n");
+            System.out.println("Menu:\n1 - Cadastrar item no estoque.\n2 - Adicionar item.\n3 - Retirar item.\n4 - Listar todos os itens.\n5 - Buscar item.\n6 - Exibir histórico.\n0 - Encerrar programa.\n");
             try {
-                System.out.println(Auxiliar.menuPrincipal(usuarioAtivo.getCargo()));
                 int escolha = scanner.nextInt();
                 scanner.nextLine();
                 switch (escolha) {
                     case 1:
+                        if (Auxiliar.verificarPermissao(usuarioAtivo.getCargo(), "Gerente")) {
+                            System.out.println("Permissão insuficiente.\n");
+                            break;
+                        }
                         System.out.println(cadastrarItem(scanner, usuarioAtivo));
+                        Thread.sleep(2000);
+                        Auxiliar.limparTela();
                         break;
                 
                     case 2:
@@ -98,7 +104,7 @@ public class App {
                             Pessoa usuario = pessoaController.login(login, senha);
                             if (usuario != null) {
                                 System.out.println("Login bem sucedido.\n");
-                                Thread.sleep(5000);
+                                Thread.sleep(2000);
                                 Auxiliar.limparTela();
                                 return usuario;
                             }
@@ -181,6 +187,8 @@ public class App {
                     boolean enderecoInserido = enderecoController.inserirEndereco(endereco, cpf);
                     if (pessoaInserida && enderecoInserido) {
                         System.out.println("Cadastro realizado com sucesso.\n");
+                        Thread.sleep(2000);
+                        Auxiliar.limparTela();
                     }
                     break;
 
