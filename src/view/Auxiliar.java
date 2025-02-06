@@ -81,7 +81,7 @@ public class Auxiliar {
     }
 
     public static boolean verificarPermissao(int id_cargo, String cargoEsperado) {
-        if (cargo.verificarChave(id_cargo).equals(cargoEsperado)) {
+        if (permissao(id_cargo).equals(cargoEsperado)) {
             return false;
         }
         return true;
@@ -89,5 +89,14 @@ public class Auxiliar {
 
     public static String permissao(int id) {
         return cargo.verificarChave(id);
+    }
+
+    public static void tempoELimparTela() {
+        try {
+            Thread.sleep(2000);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        limparTela();
     }
 }
