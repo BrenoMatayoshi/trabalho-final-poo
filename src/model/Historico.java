@@ -1,41 +1,56 @@
 package model;
 
 import java.time.LocalDate;
-// é necessario fazer uma querry que retorne o nome do item ao inves do id e retorne o nome da pessoa ao inves do seu cpf
+// para printar é necessario fazer uma querry que retorne o nome da pessoa ao inves do seu cpf
 public class Historico implements Utilidades {
     private int id_historico;
-    private String nome_pessoa;
+    private String pessoa;
+    private int id_estoque;
     private String nome_estoque;
-    private int quantidade_historico;
+    private Integer quantidade_historico;
     private LocalDate data_historico;
-    private float preco_historico;
+    private Float preco_historico;
 
-    public Historico(int id_historico, String nome_pessoa, String nome_estoque, int quantidade_historico, float preco_historico) {
-        this.id_historico = id_historico;
-        this.nome_pessoa = nome_pessoa;
-        this.nome_estoque = nome_estoque;
-        this.quantidade_historico = quantidade_historico;
+    // Contrutor para inserir item no historico, passa o cpf na variavel pessoa
+    public Historico(String pessoa, int id_estoque, Integer quantidade_historico, Float preco_historico) {
+        this.pessoa = pessoa;
         this.data_historico = LocalDate.now();
+        this.id_estoque = id_estoque;
+        this.quantidade_historico = quantidade_historico;
         this.preco_historico = preco_historico;
     }
 
+    // Construtor para printar item, passa o nome da pessoa na variavel pessoa
+    public Historico(int id_historico, String pessoa, String nome_estoque, int quantidade_historico, float preco_historico, LocalDate data_historico) {
+        this.id_historico = id_historico;
+        this.pessoa = pessoa;
+        this.nome_estoque = nome_estoque;
+        this.quantidade_historico = quantidade_historico;
+        this.data_historico = data_historico;
+        this.preco_historico = preco_historico;
+    }
+    
     public String exibirTudo() {
-        return "Nome: " + getnome_estoque() + ((this.quantidade_historico > 0) ? "Foram adicionados: +" : "Foram removidos: ") + getQuantidade_historico() + ".\nPor: " + getNome_pessoa() + " em " + getData_historico() + ".\n";
+        return "Id:" + getId_estoque() + "Nome: " + getnome_estoque() + ((getQuantidade_historico() == null) ? "Criação do item." : ((this.quantidade_historico > 0) ? "Foram adicionados: +" : "Foram removidos: ")) + getQuantidade_historico() + ".\nPor: " + getPessoa() + " em " + getData_historico() + ".\n";
     }
 
     public int getId_historico() {
         return id_historico;
     }
 
-    public String getNome_pessoa() {
-        return nome_pessoa;
+    public String getPessoa() {
+        return pessoa;
+    }
+
+    public int getId_estoque() {
+        return id_estoque;
     }
 
     public String getnome_estoque() {
         return nome_estoque;
     }
 
-    public int getQuantidade_historico() {
+    public Integer getQuantidade_historico() {
         return quantidade_historico;
     }
 
