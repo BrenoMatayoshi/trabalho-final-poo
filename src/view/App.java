@@ -36,8 +36,7 @@ public class App {
                             break;
                         }
                         System.out.println(cadastrarItem(scanner, usuarioAtivo));
-                        Thread.sleep(2000);
-                        Auxiliar.limparTela();
+                        Auxiliar.tempoELimparTela();
                         break;
                 
                     case 2:
@@ -104,8 +103,7 @@ public class App {
                             Pessoa usuario = pessoaController.login(login, senha);
                             if (usuario != null) {
                                 System.out.println("Login bem sucedido.\n");
-                                Thread.sleep(2000);
-                                Auxiliar.limparTela();
+                                Auxiliar.tempoELimparTela();
                                 return usuario;
                             }
                             System.out.println("Login ou senha inválidos, tente novamente.\n");
@@ -187,8 +185,7 @@ public class App {
                     boolean enderecoInserido = enderecoController.inserirEndereco(endereco, cpf);
                     if (pessoaInserida && enderecoInserido) {
                         System.out.println("Cadastro realizado com sucesso.\n");
-                        Thread.sleep(2000);
-                        Auxiliar.limparTela();
+                        Auxiliar.tempoELimparTela();
                     }
                     break;
 
