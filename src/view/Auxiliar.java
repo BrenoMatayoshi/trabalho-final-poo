@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import controller.CargoController;
 import model.Cargo;
+import model.Utilidades;
 
 public class Auxiliar {
     private static Cargo cargo = new CargoController().getCargos();
@@ -98,5 +99,9 @@ public class Auxiliar {
             System.out.println(e);
         }
         limparTela();
+    }
+
+    public static void imprimir(Utilidades u) {
+        System.out.println(u.exibirTudo());
     }
 }

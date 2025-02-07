@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import model.Estoque;
 
@@ -28,5 +29,20 @@ public class EstoqueDAO {
         } catch (SQLException e) {
             return -1;
         }
+    }
+
+    public ArrayList<Estoque> getEstoque() {
+        ArrayList<Estoque> arrayList = new ArrayList<>();
+        String sql = "select * from estoque";
+        try (Connection conn = ConexaoDAO.getConnection();
+        PreparedStatement stmt = conn.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                arrayList.add(new Estoque(rs.getInt("id_estoque"), rs.getString("nome_estoque"), rs.getString("descricao"), rs.getInt("quantidade_estoque")));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return arrayList;
     }
 }

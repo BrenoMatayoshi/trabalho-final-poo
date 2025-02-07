@@ -1,6 +1,8 @@
 package view;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import controller.EnderecoController;
@@ -40,7 +42,6 @@ public class App {
                         break;
                 
                     case 2:
-                        
                         break;
                 
                     case 3:
@@ -48,7 +49,7 @@ public class App {
                         break;
                 
                     case 4:
-                        
+                        listarItens();
                         break;
                 
                     case 5:
@@ -215,5 +216,14 @@ public class App {
             return "Erro ao cadastrar item.\n";
         }
         return historicoController.inserir(new Historico(usuarioAtivo.getCpf(), idCadastrado, null, null));
+    }
+
+    public static void listarItens() {
+        ArrayList<Estoque> arrayList = estoqueController.getEstoque();
+        Iterator<Estoque> iterator = arrayList.iterator();
+        while (iterator.hasNext()) {
+            Estoque elemento = iterator.next();
+            Auxiliar.imprimir(elemento);
+        }
     }
 }
