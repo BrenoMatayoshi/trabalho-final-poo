@@ -13,10 +13,10 @@ public class Estoque implements Utilidades {
         this.quantidade_estoque = quantidade_estoque;
     }
 
-    public Estoque (String nome_estoque, String descricao) {
+    public Estoque (String nome_estoque, String descricao, Integer quantidade_estoque) {
         this.nome_estoque = nome_estoque;
         this.descricao = descricao;
-        this.quantidade_estoque = null;
+        this.quantidade_estoque = quantidade_estoque;
     }
 
     public String exibirTudo() {
@@ -35,7 +35,15 @@ public class Estoque implements Utilidades {
         return descricao;
     }
 
-    public int getQuantidade_estoque() {
+    public Integer getQuantidade_estoque() {
         return quantidade_estoque;
+    }
+
+    public void setUpdate_estoque(Integer quantidade) {
+        if (quantidade_estoque == null) {
+            this.quantidade_estoque = quantidade;
+            return;
+        }
+        this.quantidade_estoque += quantidade;
     }
 }

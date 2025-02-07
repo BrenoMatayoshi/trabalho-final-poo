@@ -58,7 +58,7 @@ public class Historico implements Utilidades {
         return data_historico;
     }
 
-    public float getPreco_historico() {
+    public Float getPreco_historico() {
         return preco_historico;
     }
 }

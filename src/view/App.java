@@ -22,6 +22,7 @@ public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Pessoa usuarioAtivo = menuLogin(scanner);
+        Estoque item;
         if (usuarioAtivo == null) {
             return;
         }
@@ -42,10 +43,65 @@ public class App {
                         break;
                 
                     case 2:
+                        if (Auxiliar.verificarPermissao(usuarioAtivo.getCargo(), "Gerente")) {
+                            System.out.println("Permissão insuficiente.\n");
+                            break;
+                        }
+                        item = selecionarItem(scanner);
+                        if (item == null) {
+                            System.out.println("Item não encontrado.\n");
+                            break;
+                        }
+                        try {
+                            System.out.println("Informe a quantidade que você deseja adicionar: ");
+                            int quantidade = scanner.nextInt();
+                            scanner.nextLine();
+                            System.out.println("Informe a preço de compra: ");
+                            float preco = scanner.nextFloat();
+                            scanner.nextLine();
+                            if (historicoController.inserir(new Historico(usuarioAtivo.getCpf(), item.getId_estoque(), quantidade, preco)).equals("Sucesso.\n")) {
+                                item.setUpdate_estoque(quantidade);
+                                estoqueController.update(item);
+                                System.out.println("Adição bem sucedida.\n");
+                                Auxiliar.tempoELimparTela();
+                            }
+                        } catch (Exception e) {
+                            System.out.println("Quantidade inválida.\n");
+                            scanner.nextLine();
+                        }
                         break;
                 
                     case 3:
-                        
+                        if (Auxiliar.verificarPermissao(usuarioAtivo.getCargo(), "Gerente")) {
+                            System.out.println("Permissão insuficiente.\n");
+                            break;
+                        }
+                        item = selecionarItem(scanner);
+                        if (item == null) {
+                            System.out.println("Item não encontrado.\n");
+                            break;
+                        }
+                        try {
+                            System.out.println("Informe a quantidade que você deseja remover: ");
+                            int quantidade = scanner.nextInt();
+                            scanner.nextLine();
+                            if (quantidade > item.getQuantidade_estoque()) {
+                                System.out.println("Quantidade insuficiente.\n");
+                                break;
+                            }
+                            System.out.println("Informe a preço de compra: ");
+                            float preco = scanner.nextFloat();
+                            scanner.nextLine();
+                            if (historicoController.inserir(new Historico(usuarioAtivo.getCpf(), item.getId_estoque(), quantidade, preco)).equals("Sucesso.\n")) {
+                                item.setUpdate_estoque(quantidade);
+                                estoqueController.update(item);
+                                System.out.println("Retirada bem sucedida.\n");
+                                Auxiliar.tempoELimparTela();
+                            }
+                        } catch (Exception e) {
+                            System.out.println("Quantidade inválida.\n");
+                            scanner.nextLine();
+                        }
                         break;
                 
                     case 4:
@@ -70,7 +126,7 @@ public class App {
                 }
             } catch (Exception e) {
                 scanner.nextLine();
-                //System.out.println("Opção inválida.\n");
+                System.out.println("Opção inválida.\n");
             }
         }
     }
@@ -211,7 +267,7 @@ public class App {
         nome_estoque = scanner.nextLine();
         System.out.println("Dê a descrição do produto: ");
         descricao = scanner.nextLine();
-        int idCadastrado = estoqueController.cadastrar(new Estoque(nome_estoque, descricao));
+        int idCadastrado = estoqueController.inserir(new Estoque(nome_estoque, descricao, null));
         if (idCadastrado == -1) {
             return "Erro ao cadastrar item.\n";
         }
@@ -219,11 +275,27 @@ public class App {
     }
 
     public static void listarItens() {
-        ArrayList<Estoque> arrayList = estoqueController.getEstoque();
+        ArrayList<Estoque> arrayList = estoqueController.getItens();
         Iterator<Estoque> iterator = arrayList.iterator();
         while (iterator.hasNext()) {
             Estoque elemento = iterator.next();
             Auxiliar.imprimir(elemento);
         }
+    }
+
+    public static Estoque selecionarItem(Scanner scanner) {
+        System.out.println("Selecione o id do item: ");
+        listarItens();
+        try {
+            int idEscolhido = scanner.nextInt();
+            scanner.nextLine();
+            if (idEscolhido < 1 || idEscolhido > estoqueController.quantidadeItens()) {
+                return estoqueController.getEstoque(idEscolhido);
+            }
+        } catch (Exception e) {
+            scanner.nextLine();
+            System.out.println("Opção inválida, tente novamente.\n");
+        }
+        return null;
     }
 }
