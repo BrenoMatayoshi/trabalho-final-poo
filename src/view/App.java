@@ -56,6 +56,10 @@ public class App {
                             System.out.println("Informe a quantidade que você deseja adicionar: ");
                             int quantidade = scanner.nextInt();
                             scanner.nextLine();
+                            if (quantidade < 0 || quantidade == 0) {
+                                System.out.println("Quantidade inválida.\n");
+                                break;
+                            }
                             System.out.println("Informe a preço de compra: ");
                             float preco = scanner.nextFloat();
                             scanner.nextLine();
@@ -85,7 +89,7 @@ public class App {
                             System.out.println("Informe a quantidade que você deseja remover: ");
                             int quantidade = scanner.nextInt();
                             scanner.nextLine();
-                            if (quantidade > item.getQuantidade_estoque()) {
+                            if (quantidade > item.getQuantidade_estoque() || quantidade == 0) {
                                 System.out.println("Quantidade insuficiente.\n");
                                 break;
                             }
@@ -113,7 +117,7 @@ public class App {
                         break;
                 
                     case 6:
-                        
+                        listarHistorico();
                         break;
                 
                     case 0:
@@ -279,6 +283,15 @@ public class App {
         Iterator<Estoque> iterator = arrayList.iterator();
         while (iterator.hasNext()) {
             Estoque elemento = iterator.next();
+            Auxiliar.imprimir(elemento);
+        }
+    }
+
+    public static void listarHistorico() {
+        ArrayList<Historico> arrayList = historicoController.getHistorico();
+        Iterator<Historico> iterator = arrayList.iterator();
+        while (iterator.hasNext()) {
+            Historico elemento = iterator.next();
             Auxiliar.imprimir(elemento);
         }
     }
