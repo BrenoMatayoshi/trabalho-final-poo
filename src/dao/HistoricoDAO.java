@@ -2,7 +2,9 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import model.Historico;
 
@@ -24,5 +26,20 @@ public class HistoricoDAO {
         } catch (SQLException e) {
             return "Mal sucessido.\n";
         }
+    }
+
+    public ArrayList<Historico> getHistorico() {
+        ArrayList<Historico> arrayList = new ArrayList<>();
+        String sql = "select h.id_historico, p.nome_pessoa, e.nome_estoque, h.quantidade_historico, h.data_historico, h.preco_historico from historico h left join pessoa p on p.cpf = h.pessoa_cpf left join estoque e on e.id_estoque = h.id_estoque";
+        try (Connection conn = ConexaoDAO.getConnection();
+        PreparedStatement stmt = conn.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                arrayList.add(new Historico(rs.getString("nome_pessoa"), rs.getString("nome_estoque"), rs.getInt("quantidade_historico"), rs.getFloat("preco_historico"), rs.getDate("data_historico").toLocalDate()));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return arrayList;
     }
 }

@@ -21,8 +21,7 @@ public class Historico implements Utilidades {
     }
 
     // Construtor para printar item, passa o nome da pessoa na variavel pessoa
-    public Historico(int id_historico, String pessoa, String nome_estoque, int quantidade_historico, float preco_historico, LocalDate data_historico) {
-        this.id_historico = id_historico;
+    public Historico(String pessoa, String nome_estoque, int quantidade_historico, float preco_historico, LocalDate data_historico) {
         this.pessoa = pessoa;
         this.nome_estoque = nome_estoque;
         this.quantidade_historico = quantidade_historico;
@@ -31,7 +30,7 @@ public class Historico implements Utilidades {
     }
     
     public String exibirTudo() {
-        return "Id:" + getId_estoque() + "Nome: " + getnome_estoque() + ((getQuantidade_historico() == null) ? "Criação do item." : ((this.quantidade_historico > 0) ? "Foram adicionados: +" : "Foram removidos: ")) + getQuantidade_historico() + ".\nPor: " + getPessoa() + " em " + getData_historico() + ".\n";
+        return "Nome: " + getnome_estoque() + ((getQuantidade_historico() == 0) ? ".\nCadastro do item" : ((this.quantidade_historico > 0) ? ".\nForam adicionados: +" + getQuantidade_historico() : ".\nForam removidos: " + getQuantidade_historico()))  + ".\nPor: " + getPessoa() + " em " + getData_historico() + ".\n";
     }
 
     public int getId_historico() {
