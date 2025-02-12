@@ -113,7 +113,7 @@ public class App {
                         break;
                 
                     case 5:
-                        
+                        buscarItem(scanner);
                         break;
                 
                     case 6:
@@ -310,5 +310,28 @@ public class App {
             System.out.println("Opção inválida, tente novamente.\n");
         }
         return null;
+    }
+
+    public static void buscarItem(Scanner scanner) {
+        System.out.println("Informe o nome ou ID do item: ");
+        String input = scanner.nextLine();
+        try {
+            int id = Integer.parseInt(input);
+            Estoque item = estoqueController.getEstoque(id);
+            if (item != null) {
+                Auxiliar.imprimir(item);
+            } else {
+                System.out.println("Item não encontrado.\n");
+            }
+        } catch (NumberFormatException e) {
+            ArrayList<Estoque> itens = estoqueController.getItens();
+            if (!itens.isEmpty()) {
+                for (Estoque item : itens) {
+                    Auxiliar.imprimir(item);
+                }
+            } else {
+                System.out.println("Item não encontrado.\n");
+            }
+        }
     }
 }
