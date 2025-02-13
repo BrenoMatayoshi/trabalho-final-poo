@@ -143,126 +143,134 @@ public class App {
                 scanner.nextLine();
                 switch (escolha) {
                     case 1:
-                        String login;
-                        Auxiliar.limparTela();
-                        while (true) {
-                            while (true) {
-                                System.out.println("Login:\nInforme seu email ou cpf: ");
-                                login = scanner.nextLine();
+                        return realizarLogin(scanner);
 
-                                if (Auxiliar.validarEmail(login)) {
-                                    break;
-                                }
-                                if (Auxiliar.validarCPF(login)) {
-                                    login = Auxiliar.formatarCPF(login);
-                                    break;
-                                }
-                                System.out.println("Login inválido.\n");
-                            }
-                            System.out.println("Informe sua senha: ");
-                            String senha = scanner.nextLine();
-                            Pessoa usuario = pessoaController.login(login, senha);
-                            if (usuario != null) {
-                                System.out.println("Login bem sucedido.\n");
-                                Auxiliar.tempoELimparTela();
-                                return usuario;
-                            }
-                            System.out.println("Login ou senha inválidos, tente novamente.\n");
-                        }
-
-                case 2:
-                    Auxiliar.limparTela();
-                    System.out.println("Registrar:\nInforme seu nome: ");
-                    String nome = scanner.nextLine();
-                    System.out.println("Informe seu cpf: ");
-                    String cpf = null;
-                    while (true) {
-                        cpf = scanner.nextLine();
-                        if (Auxiliar.validarCPF(cpf)) {
-                            cpf = Auxiliar.formatarCPF(cpf);
-                            break;
-                        }
-                        System.out.println("Cpf inválido, tente novamente.\n");
-                    }
-                    System.out.println("Informe seu email: ");
-                    String email = null;
-                    while (true) {
-                        email = scanner.nextLine();
-                        if (Auxiliar.validarEmail(email)) {
-                            break;
-                        }
-                        System.out.println("Email inválido, tente novamente.\n");
-                    }
-                    System.out.println("Informe a sua data de nascimento:(ano-mes-dia)");
-                    String dataNascimento = null;
-                    LocalDate dataNascimentoFormatada = null;
-                    while (true) {
-                        dataNascimento = scanner.nextLine();
-                        dataNascimentoFormatada = Auxiliar.validarDataNascimento(dataNascimento);
-                        if (dataNascimentoFormatada != null) {
-                            break;
-                        }
-                        System.out.println("Data inválida, tente novamente.\n");
-                    }
-                    System.out.println("Escolha um cargo: \n1 - Membro.\n2 - Gerente.\n");
-                    int cargo;
-                    while (true) {
-                        try {
-                            cargo = scanner.nextInt();
-                            scanner.nextLine();
-                            if (cargo == 1 || cargo == 2) {
-                                break;
-                            }
-                            System.out.println("Opção inválida, tente novamente.\n");
-                        } catch (Exception e) {
-                            System.out.println("Opção inválida, tente novamente.\n");
-                            scanner.nextLine();
-                        }
-                    }
-                    System.out.println("Informe a sua senha: ");
-                    String senha = scanner.nextLine();
-                    if (pessoaController.existeCpf(cpf)) {
-                        System.out.println("Já existe um cadastro com este cpf, efetuie login.\n");                            
+                    case 2:
+                        realizarRegistro(scanner);
                         break;
-                    }
-                    if (pessoaController.existeEmail(email)) {
-                        System.out.println("Já existe um cadastro com este email, efetue login.\n");                            
+
+                    case 3:
+                        System.out.println("Programa encerrado com sucesso.\n");
+                        return null;
+
+                    default:
                         break;
-                    }
-                    System.out.println("Informe o seu cep: ");
-                    String cep = null;
-                    while (true) {
-                        cep = scanner.nextLine();
-                        if (Auxiliar.validarCEP(cep)) {
-                            break;
-                        }
-                        System.out.println("Cep inválido, tente novamente.\n");
-                    }
-                    System.out.println("Informe o complemento: ");
-                    String complemento = scanner.nextLine();
-                    Endereco endereco = new Endereco(complemento, cep);
-                    Pessoa pessoa = new Pessoa(cpf, nome, dataNascimentoFormatada, senha, email, cargo, endereco);
-                    boolean pessoaInserida = pessoaController.inserirPessoa(pessoa);
-                    boolean enderecoInserido = enderecoController.inserirEndereco(endereco, cpf);
-                    if (pessoaInserida && enderecoInserido) {
-                        System.out.println("Cadastro realizado com sucesso.\n");
-                        Auxiliar.tempoELimparTela();
-                    }
-                    break;
-
-                case 3:
-                    System.out.println("Programa encerrado com sucesso.\n");
-                    return null;
-
-                default:
-                    break;
-            }
+                }
         } catch (Exception e) {
             System.out.println("Opção inválida.\n");
         }
 
     }
 }
+
+    public static Pessoa realizarLogin(Scanner scanner) {
+        String login;
+        Auxiliar.limparTela();
+        while (true) {
+            while (true) {
+                System.out.println("Login:\nInforme seu email ou cpf: ");
+                login = scanner.nextLine();
+
+                if (Auxiliar.validarEmail(login)) {
+                    break;
+                }
+                if (Auxiliar.validarCPF(login)) {
+                    login = Auxiliar.formatarCPF(login);
+                    break;
+                }
+                System.out.println("Login inválido.\n");
+            }
+            System.out.println("Informe sua senha: ");
+            String senha = scanner.nextLine();
+            Pessoa usuario = pessoaController.login(login, senha);
+            if (usuario != null) {
+                System.out.println("Login bem sucedido.\n");
+                Auxiliar.tempoELimparTela();
+                return usuario;
+            }
+            System.out.println("Login ou senha inválidos, tente novamente.\n");
+        }
+    }
+
+    public static void realizarRegistro(Scanner scanner) {
+        Auxiliar.limparTela();
+        System.out.println("Registrar:\nInforme seu nome: ");
+        String nome = scanner.nextLine();
+        System.out.println("Informe seu cpf: ");
+        String cpf = null;
+        while (true) {
+            cpf = scanner.nextLine();
+            if (Auxiliar.validarCPF(cpf)) {
+                cpf = Auxiliar.formatarCPF(cpf);
+                break;
+            }
+            System.out.println("Cpf inválido, tente novamente.\n");
+        }
+        System.out.println("Informe seu email: ");
+        String email = null;
+        while (true) {
+            email = scanner.nextLine();
+            if (Auxiliar.validarEmail(email)) {
+                break;
+            }
+            System.out.println("Email inválido, tente novamente.\n");
+        }
+        System.out.println("Informe a sua data de nascimento:(ano-mes-dia)");
+        String dataNascimento = null;
+        LocalDate dataNascimentoFormatada = null;
+        while (true) {
+            dataNascimento = scanner.nextLine();
+            dataNascimentoFormatada = Auxiliar.validarDataNascimento(dataNascimento);
+            if (dataNascimentoFormatada != null) {
+                break;
+            }
+            System.out.println("Data inválida, tente novamente.\n");
+        }
+        System.out.println("Escolha um cargo: \n1 - Membro.\n2 - Gerente.\n");
+        int cargo;
+        while (true) {
+            try {
+                cargo = scanner.nextInt();
+                scanner.nextLine();
+                if (cargo == 1 || cargo == 2) {
+                    break;
+                }
+                System.out.println("Opção inválida, tente novamente.\n");
+            } catch (Exception e) {
+                System.out.println("Opção inválida, tente novamente.\n");
+                scanner.nextLine();
+            }
+        }
+        System.out.println("Informe a sua senha: ");
+        String senha = scanner.nextLine();
+        if (pessoaController.existeCpf(cpf)) {
+            System.out.println("Já existe um cadastro com este cpf, efetuie login.\n");                            
+            return;
+        }
+        if (pessoaController.existeEmail(email)) {
+            System.out.println("Já existe um cadastro com este email, efetue login.\n");                            
+            return;
+        }
+        System.out.println("Informe o seu cep: ");
+        String cep = null;
+        while (true) {
+            cep = scanner.nextLine();
+            if (Auxiliar.validarCEP(cep)) {
+                break;
+            }
+            System.out.println("Cep inválido, tente novamente.\n");
+        }
+        System.out.println("Informe o complemento: ");
+        String complemento = scanner.nextLine();
+        Endereco endereco = new Endereco(complemento, cep);
+        Pessoa pessoa = new Pessoa(cpf, nome, dataNascimentoFormatada, senha, email, cargo, endereco);
+        boolean pessoaInserida = pessoaController.inserirPessoa(pessoa);
+        boolean enderecoInserido = enderecoController.inserirEndereco(endereco, cpf);
+        if (pessoaInserida && enderecoInserido) {
+            System.out.println("Cadastro realizado com sucesso.\n");
+            Auxiliar.tempoELimparTela();
+        }
+    }
 
     public static String cadastrarItem(Scanner scanner, Pessoa usuarioAtivo) {
         String nome_estoque;
