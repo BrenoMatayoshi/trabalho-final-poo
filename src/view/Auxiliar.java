@@ -104,4 +104,26 @@ public class Auxiliar {
     public static void imprimir(Utilidades u) {
         System.out.println(u.exibirTudo());
     }
+
+    public static boolean validarCNPJ(String cnpj) {
+        cnpj = (cnpj.replaceAll("[^a-zA-Z0-9]", ""));
+
+        // Verifica se tem 14 dígitos       
+        if (cnpj.length() != 14) {
+            return false;
+        }
+
+        for (char c : cnpj.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public static String formatarCNPJ(String cnpj) {
+        cnpj = (cnpj.replaceAll("[^a-zA-Z0-9]", ""));
+        return (cnpj.substring(0,2) + "." + cnpj.substring(2, 5) + "." + cnpj.substring(5, 8) + "/" + cnpj.substring(8, 12) + "-" + cnpj.substring(12, 14));
+    }
 }

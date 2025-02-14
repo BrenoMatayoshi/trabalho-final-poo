@@ -4,16 +4,16 @@ public class Estoque implements Utilidades {
     private int id_estoque;
     private String nome_estoque;
     private String descricao;
-    private Integer quantidade_estoque;
+    private int quantidade_estoque;
     
-    public Estoque(int id_estoque, String nome_estoque, String descricao, Integer quantidade_estoque) {
+    public Estoque(int id_estoque, String nome_estoque, String descricao, int quantidade_estoque) {
         this.id_estoque = id_estoque;
         this.nome_estoque = nome_estoque;
         this.descricao = descricao;
         this.quantidade_estoque = quantidade_estoque;
     }
 
-    public Estoque (String nome_estoque, String descricao, Integer quantidade_estoque) {
+    public Estoque (String nome_estoque, String descricao, int quantidade_estoque) {
         this.nome_estoque = nome_estoque;
         this.descricao = descricao;
         this.quantidade_estoque = quantidade_estoque;
@@ -35,15 +35,11 @@ public class Estoque implements Utilidades {
         return descricao;
     }
 
-    public Integer getQuantidade_estoque() {
+    public int getQuantidade_estoque() {
         return quantidade_estoque;
     }
 
-    public void setUpdate_estoque(Integer quantidade) {
-        if (quantidade_estoque == null) {
-            this.quantidade_estoque = quantidade;
-            return;
-        }
+    public void setUpdate_estoque(int quantidade) {
         this.quantidade_estoque += quantidade;
     }
 }
